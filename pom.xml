@@ -20,7 +20,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <rabbitmq.version>3.6.5</rabbitmq.version>
+        <rabbitmq.version>4.8.0</rabbitmq.version>
     </properties>
 
     <dependencyManagement>
