@@ -24,7 +24,22 @@ public class QueueConstant {
     public static final String EXCHANGE_NAME_DIRECT = "exchange_direct";
 
     /**
+     * topic 模式
+     */
+    public static final String EXCHANGE_NAME_TOPIC = "exchange_topic";
+
+    /**
      * 发布订阅 队列名称
      */
     public static final String SUBSCRIBE_QUEUE_NAME = "subscribe_queue_%s";
+
+    /**
+     * direct 队列
+     */
+    public static final String DIRECT_QUEUE_NAME = "direct_queue_%s";
+
+    /**
+     * topic 队列
+     */
+    public static final String TOPIC_QUEUE_NAME = "topic_queue_%s";
 }

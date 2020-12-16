@@ -39,13 +39,21 @@ public class MessageHandlerImpl implements MessageHandler {
     }
 
     @Override
-    public void sendRoutingMessage(String message) {
-
+    public void sendRoutingMessage(String routingKey, String message) throws IOException, TimeoutException{
+        Connection connection = connectionConfig.getRabbitMqConnection();
+        Channel channel = connection.createChannel();
+        channel.exchangeDeclare(QueueConstant.EXCHANGE_NAME_DIRECT, BuiltinExchangeType.DIRECT);
+        channel.basicPublish(QueueConstant.EXCHANGE_NAME_DIRECT, routingKey, null, message.getBytes());
+        channel.close();
     }
 
     @Override
-    public void sendTopicMessage(String message) {
-
+    public void sendTopicMessage(String routingKey, String message) throws IOException, TimeoutException{
+        Connection connection = connectionConfig.getRabbitMqConnection();
+        Channel channel = connection.createChannel();
+        channel.exchangeDeclare(QueueConstant.EXCHANGE_NAME_TOPIC, BuiltinExchangeType.TOPIC);
+        channel.basicPublish(QueueConstant.EXCHANGE_NAME_TOPIC, routingKey, null, message.getBytes());
+        channel.close();
     }
 
     @Override

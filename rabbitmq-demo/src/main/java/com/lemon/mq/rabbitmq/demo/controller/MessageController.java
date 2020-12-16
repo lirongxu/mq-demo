@@ -30,4 +30,24 @@ public class MessageController {
 
         return Result.ok();
     }
+
+    @GetMapping("/direct/send")
+    public Result directSend(
+            @RequestParam(value = "routing_key") String routingKey,
+            @RequestParam String message
+    ) throws IOException, TimeoutException {
+        messageHandler.sendRoutingMessage(routingKey, message);
+
+        return Result.ok();
+    }
+
+    @GetMapping("/topic/send")
+    public Result topicSend(
+            @RequestParam(value = "routing_key") String routingKey,
+            @RequestParam String message
+    ) throws IOException, TimeoutException {
+        messageHandler.sendTopicMessage(routingKey, message);
+
+        return Result.ok();
+    }
 }

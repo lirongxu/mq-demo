@@ -23,15 +23,16 @@ public interface MessageHandler {
 
     /**
      * 发送 routing 消息
+     * @param routingKey
      * @param message
      */
-    void sendRoutingMessage(String message) throws IOException, TimeoutException;
+    void sendRoutingMessage(String routingKey, String message) throws IOException, TimeoutException;
 
     /**
      * 发送 topic 消息
      * @param message
      */
-    void sendTopicMessage(String message) throws IOException, TimeoutException;
+    void sendTopicMessage(String routingKey, String message) throws IOException, TimeoutException;
 
     /**
      * 发送 rpc 消息
