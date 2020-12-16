@@ -3,7 +3,6 @@ package com.lemon.mq.rabbitmq.demo.config;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -20,8 +19,7 @@ public class ConnectionConfig {
     @Resource
     private RabbitmqConfig rabbitmqConfig;
 
-    @Bean
-    public Connection rabbitMqConnection() {
+    public Connection getRabbitMqConnection() {
         try {
             ConnectionFactory connectionFactory = new ConnectionFactory();
             connectionFactory.setHost(rabbitmqConfig.getHost());
