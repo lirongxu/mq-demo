@@ -50,4 +50,14 @@ public class MessageController {
 
         return Result.ok();
     }
+
+    @GetMapping("/dead/send")
+    public Result deadLetterSend(
+            @RequestParam(value = "routing_key") String routingKey,
+            @RequestParam String message
+    ) throws IOException, TimeoutException {
+        messageHandler.sendDeadLetterMessage(routingKey, message);
+
+        return Result.ok();
+    }
 }

@@ -2,6 +2,7 @@ package com.lemon.mq.rabbitmq.demo.handler;
 
 import com.lemon.mq.rabbitmq.demo.config.ConnectionConfig;
 import com.lemon.mq.rabbitmq.demo.constant.QueueConstant;
+import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -25,6 +26,13 @@ public class MessageHandlerImpl implements MessageHandler {
         Connection connection = connectionConfig.getRabbitMqConnection();
         Channel channel = connection.createChannel();
         channel.queueDeclare(QueueConstant.SIMPLE_QUEUE_NAME, false, false, false, null);
+        /**
+         * exchange 消息要发送的交换器
+         * routingKey 路由key
+         * mandatory 如果mandatory标记被设置
+         * properties 消息属性
+         * body 消息体
+         */
         channel.basicPublish("", QueueConstant.SIMPLE_QUEUE_NAME, null, message.getBytes());
         channel.close();
     }
@@ -57,7 +65,24 @@ public class MessageHandlerImpl implements MessageHandler {
     }
 
     @Override
-    public void sendRpcMessage(String message) {
+    public void sendRpcMessage(String message) throws IOException, TimeoutException {
 
+    }
+
+    @Override
+    public void sendDeadLetterMessage(String routingKey, String message) throws IOException, TimeoutException {
+        Connection connection = connectionConfig.getRabbitMqConnection();
+        Channel channel = connection.createChannel();
+        channel.exchangeDeclare(QueueConstant.EXCHANGE_NAME_TEST_DEAD_LETTER, BuiltinExchangeType.TOPIC);
+
+        /**
+         * 消息10s过期
+         */
+        AMQP.BasicProperties properties = new AMQP.BasicProperties.Builder()
+                .contentEncoding("UTF-8")
+                .expiration("10000")
+                .build();
+        channel.basicPublish(QueueConstant.EXCHANGE_NAME_TEST_DEAD_LETTER, routingKey, properties, message.getBytes());
+        channel.close();
     }
 }

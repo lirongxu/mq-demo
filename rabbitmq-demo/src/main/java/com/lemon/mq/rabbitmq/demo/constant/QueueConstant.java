@@ -42,4 +42,22 @@ public class QueueConstant {
      * topic 队列
      */
     public static final String TOPIC_QUEUE_NAME = "topic_queue_%s";
+
+    /**
+     * 死信交换机
+     */
+    public static final String EXCHANGE_NAME_DEAD_LETTER = "exchange_dead_letter";
+    /**
+     * 测试死信交换机
+     */
+    public static final String EXCHANGE_NAME_TEST_DEAD_LETTER = "exchange_test_dead_letter";
+
+    /**
+     * 测试死信队列
+     */
+    public static final String TEST_DEAD_LETTER_QUEUE_NAME = "test_dead_letter_queue";
+    /**
+     * 死信队列
+     */
+    public static final String DEAD_LETTER_QUEUE_NAME = "dead_letter_queue";
 }

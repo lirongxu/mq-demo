@@ -34,6 +34,11 @@ public class SimpleQueueListener implements ApplicationRunner {
         Channel channel = connection.createChannel();
         channel.queueDeclare(QueueConstant.SIMPLE_QUEUE_NAME, false, false, false, null);
         channel.basicQos(1);
+        /**
+         * queue 队列名
+         * autoAck
+         * consumer
+         */
         channel.basicConsume(QueueConstant.SIMPLE_QUEUE_NAME, true, new DefaultConsumer(channel){
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
