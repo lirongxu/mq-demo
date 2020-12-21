@@ -20,6 +20,7 @@
     </dependencies>
 
     <build>
+        <finalName>rabbitmq-demo</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

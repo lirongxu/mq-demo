@@ -16,6 +16,7 @@
 
     <modules>
         <module>rabbitmq-demo</module>
+        <module>kafka-demo</module>
     </modules>
 
     <properties>
