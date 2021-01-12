@@ -4,7 +4,7 @@ Configuration:
   Properties: #定义全局变量
     Property:
       - name: log.path
-        value: /mnt/logs/rabbitmq-demo
+        value: /mnt/logs/kafka-demo
   Appenders:
     Console: #输出到控制台
       name: CONSOLE
@@ -17,9 +17,9 @@ Configuration:
         onMatch: ACCEPT
         onMismatch: DENY
     RollingFile: #输出到文件
-      - name: rabbitmq-demo
-        fileName: "${log.path}/rabbitmq-demo.log"
-        filePattern: "${log.path}/rabbitmq-demo_%d{yyyy-MM-dd}.log"
+      - name: kafka-demo
+        fileName: "${log.path}/kafka-demo.log"
+        filePattern: "${log.path}/kafka-demo_%d{yyyy-MM-dd}.log"
         PatternLayout:
           Pattern: "[%X{request_id}] %-d{yyyy-MM-dd HH:mm:ss} - [%p] [%C{1}:%L %M] %m%n"
         Policies:
@@ -36,4 +36,4 @@ Configuration:
       AppenderRef:
         - ref: CONSOLE
           #level: error
-        - ref: rabbitmq-demo
+        - ref: kafka-demo

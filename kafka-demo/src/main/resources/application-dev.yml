@@ -1,2 +1,5 @@
 server:
   port: 8080
+
+kafka:
+  servers: 10.3.16.95:9092

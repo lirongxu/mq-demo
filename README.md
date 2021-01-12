@@ -57,24 +57,34 @@ version: '2'
 services:
   zookeeper:
     image: zookeeper:3.5.8
+    volumes:
+      - ./data:/data
     ports:
       - "2181:2181"
   kafka:
     image: wurstmeister/kafka:2.12-2.2.2
     ports:
-      - "9092"
+      - "9092:9092"
     environment:
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://:9092
-      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_BROKER_ID: 0
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://10.3.16.95:9092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_CREATE_TOPICS: "test:2:1"
+      KAFKA_HEAP_OPTS: -Xmx256M -Xms128M
     volumes:
       - ./var/run/docker.sock:/var/run/docker.sock
+      - ./logs/:/opt/kafka/logs/
+    depends_on:
+      - zookeeper
   kafka-manager:
     image: kafkamanager/kafka-manager:3.0.0.4
     ports:
       - 9000:9000
     environment:
       ZK_HOSTS: zookeeper:2181
+      KAFKA_BROKERS: kafka:9092
       KAFKA_MANAGER_AUTH_ENABLED: "true"
       KAFKA_MANAGER_USERNAME: admin
       KAFKA_MANAGER_PASSWORD: admin
