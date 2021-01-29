@@ -7,8 +7,8 @@
         <artifactId>mq-demo</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>rabbitmq-demon</artifactId>
-    <name>rabbitmq-demon</name>
+    <artifactId>rabbitmq-demo</artifactId>
+    <name>rabbitmq-demo</name>
     <description>rabbitmq test demo</description>
 
     <dependencies>
