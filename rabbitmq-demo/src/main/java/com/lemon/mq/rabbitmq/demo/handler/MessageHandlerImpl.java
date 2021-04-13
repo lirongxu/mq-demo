@@ -21,6 +21,12 @@ public class MessageHandlerImpl implements MessageHandler {
     @Resource
     private ConnectionConfig connectionConfig;
 
+    /**
+     * 单队列模式
+     * @param message
+     * @throws IOException
+     * @throws TimeoutException
+     */
     @Override
     public void sendWorkMessage(String message) throws IOException, TimeoutException{
         Connection connection = connectionConfig.getRabbitMqConnection();
@@ -37,6 +43,12 @@ public class MessageHandlerImpl implements MessageHandler {
         channel.close();
     }
 
+    /**
+     * exchange fanout 路由广播模式
+     * @param message
+     * @throws IOException
+     * @throws TimeoutException
+     */
     @Override
     public void sendSubMessage(String message) throws IOException, TimeoutException{
         Connection connection = connectionConfig.getRabbitMqConnection();
@@ -46,6 +58,13 @@ public class MessageHandlerImpl implements MessageHandler {
         channel.close();
     }
 
+    /**
+     * exchange direct 路由direct模式  支持routingKey路由
+     * @param routingKey
+     * @param message
+     * @throws IOException
+     * @throws TimeoutException
+     */
     @Override
     public void sendRoutingMessage(String routingKey, String message) throws IOException, TimeoutException{
         Connection connection = connectionConfig.getRabbitMqConnection();
@@ -55,6 +74,13 @@ public class MessageHandlerImpl implements MessageHandler {
         channel.close();
     }
 
+    /**
+     * exchange topic 路由主题模式  routingKey采用正则*# *匹配一个单词  #匹配多个单词
+     * @param routingKey 如domain.*.#
+     * @param message
+     * @throws IOException
+     * @throws TimeoutException
+     */
     @Override
     public void sendTopicMessage(String routingKey, String message) throws IOException, TimeoutException{
         Connection connection = connectionConfig.getRabbitMqConnection();
@@ -69,6 +95,13 @@ public class MessageHandlerImpl implements MessageHandler {
 
     }
 
+    /**
+     * 延迟队列实现  延迟队列基于死信队列实现 消息设置过期时间如果过期路由到死信队列
+     * @param routingKey
+     * @param message
+     * @throws IOException
+     * @throws TimeoutException
+     */
     @Override
     public void sendDeadLetterMessage(String routingKey, String message) throws IOException, TimeoutException {
         Connection connection = connectionConfig.getRabbitMqConnection();
