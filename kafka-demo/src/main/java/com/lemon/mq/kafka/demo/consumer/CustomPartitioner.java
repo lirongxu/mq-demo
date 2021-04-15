@@ -14,6 +14,16 @@ import java.util.Map;
  * @create 2020/12/23
  */
 public class CustomPartitioner implements Partitioner {
+    /**
+     * 自定义分区
+     * @param topic
+     * @param key
+     * @param keyBytes
+     * @param value
+     * @param valueBytes
+     * @param cluster
+     * @return
+     */
     @Override
     public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster) {
         //获取topic所有分区
@@ -23,11 +33,10 @@ public class CustomPartitioner implements Partitioner {
         if (null == keyBytes || !(key instanceof String)) {
             throw new InvalidRecordException("kafka message must have key");
         }
-        //如果只有一个分区，即0号分区
-        if (numPartitions == 1) {return 0;}
-        //如果key为name，发送至最后一个分区
-        if (key.equals("name")) {return numPartitions - 1;}
-        return Math.abs(Utils.murmur2(keyBytes)) % (numPartitions - 1);
+        /**
+         * 取key的hash 模上分区数量
+         */
+        return Utils.toPositive(Utils.murmur2(keyBytes)) % numPartitions;
     }
 
     @Override

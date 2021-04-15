@@ -22,18 +22,19 @@ public class MessageServiceImpl implements MessageService {
     @Resource
     private ConnectionConfig connectionConfig;
     private static KafkaProducer<String, String> producer;
+    private static final String topic = "test";
 
     @Override
     public void sendMessage(String message) {
         Properties properties = connectionConfig.getConnection();
         producer = new KafkaProducer<String, String>(properties);
-        ProducerRecord<String, String> record = new ProducerRecord<>("test", "name", message);
+        ProducerRecord<String, String> record = new ProducerRecord<>(topic, message, message);
         producer.send(record, new Callback() {
             @Override
             public void onCompletion(RecordMetadata recordMetadata, Exception e) {
                 log.info("recordMetadata:{}", recordMetadata);
             }
         });
-//        producer.close();
+        producer.close();
     }
 }

@@ -101,3 +101,7 @@ kafka_kafka-manager_1   cmak-3.0.0.4/bin/cmak            Up      0.0.0.0:9000->9
 kafka_kafka_1           start-kafka.sh                   Up      0.0.0.0:32769->9092/tcp
 kafka_zookeeper_1       /docker-entrypoint.sh zkSe ...   Up      0.0.0.0:2181->2181/tcp, 2888/tcp, 3888/tcp, 8080/tcp
 ```
+通过kafka-admin查看kafka集群情况
+http://127.0.0.1:9000
+注册下kafka，就可以看到里面的topic等信息
+KAFKA_ADVERTISED_LISTENERS 配置的是对外暴露的ip；(需要docker中zk可以访问以及容器外部可以访问)只能用宿主机的内网ip；也就是ifconfig的en0
