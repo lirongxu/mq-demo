@@ -1,5 +1,6 @@
 package com.lemon.mq.kafka.demo.producer.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lemon.mq.kafka.demo.config.ConnectionConfig;
 import com.lemon.mq.kafka.demo.producer.MessageService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
         producer.send(record, new Callback() {
             @Override
             public void onCompletion(RecordMetadata recordMetadata, Exception e) {
-                log.info("recordMetadata:{}", recordMetadata);
+                log.info("recordMetadata:{}", JSONObject.toJSONString(recordMetadata));
             }
         });
         producer.close();
