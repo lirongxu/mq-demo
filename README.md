@@ -1,6 +1,9 @@
 ## mq技术栈
 ### rabbitmq
 #### rabbitmq安装
+
+
+
 为了能减少安装花费时间本地采用docker-compose方式
 先创建目录：
 ```
